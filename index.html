@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pre-entrega 26126 23073520</title>
+    <link rel="stylesheet" href="./estilos/estilos.css">
+
+</head>
+<body id="cuerpo">
+    <header class="header1">
+       <div class="menu0">
+            <a href="#" class="logo-link">
+                <img src="./assets/logo1.png" alt="Logo de la tienda" class="logo">
+            </a>
+            <h1>Compania de Servicios Aereos</h1>
+        </div>
+        <nav class="menu1">
+            <ul class="menu11">
+                 <li class="nav1"> <a href="#">Login</a></li>
+                 <li class="nav1"> <a href="#reg">Registrate</a></li>
+                 <!--<li class="nav1"> <a href="#carr">carrito</a></li>-->
+                 <li class="nav1"> <a href="./pages/carrito.html" >carrito</a></li>     
+            </ul>
+     </nav>
+    </header>
+    <nav class="menu2">
+      <ul class="menu22">
+            <li class="nav2"><a href="#">Inicio</a></li>
+            <li class="nav2"><a href="#servicio">Servicios</a></li>
+            <li class="nav2"><a href="#rese">Reseñas</a></li>
+            <li class="nav2"><a href="#conta">Contacto</a></li>
+        </ul>  
+    </nav>
+     
+    <main class="principal">
+        <!--<h1>Compañia Intergral de AVIACION</h1>-->
+        <img src="./img/header.jpg" alt="Avion Compania" class="imagen-p">
+    </main>    
+    
+       <section class="servicios-destacados" id="servicio">
+            <h2>Servicios destacados</h2>
+            <p>Conocé nuestras principales opciones de transporte aéreo.</p>
+        </section>
+
+
+    
+    <section class="nosot">
+        
+        <div id="servicio" class="nos">
+            <img src="./img/cargo-plane.jpg" alt="Transporte logístico">
+            <div class="texto-nos">
+              <h2>Transporte logistico</h2>
+              <a href="#" class="btn-compra">Comprar</a>
+            </div>
+        </div>
+        
+        <div class="nos">
+            <img src="./img/travel.jpg" alt="Venta de pasajes">
+            <div class="texto-nos">
+               <h2>Venta de Pasajes</h2>
+               <a href="#" class="btn-compra">Comprar</a>
+            </div>   
+        </div>
+        <div class="nos">
+            <img src="./img/repar.jpg" alt="Mantenimiento de aeronaves">
+            <div class="texto-nos">
+              <h2>Servicio de Mantenimiento</h2>
+              <a href="#" class="btn-compra">Comprar</a>
+            </div>  
+        </div>
+    </section>
+
+        <section class="rese" id="resen">
+            <h2>Opiniones de nuestros clientes</h2>
+        </section>
+
+
+
+    <section id="rese" class="resenas">
+        <div class="resena">
+            <p>"Muy buen servicio, responsables y puntuales."</p>
+             <audio controls>
+                <source src="./audios/mensaje_buen_servicio.mp3" type="audio/mpeg">
+            Tu navegador no soporta la reproducción de audio.
+             </audio>
+            <h3>- Juan Pérez</h3>
+        </div>
+
+        <div class="resena">
+             <p>"Excelente atención y buena experiencia de viaje."</p>
+             <video controls class="video-resena">
+                 <source src="./video/video1.mp4" type="video/mp4">
+                    Tu navegador no soporta video.
+             </video>
+             <h3>- María Gómez</h3>
+        </div>
+    </section>
+
+    <section class="cont" id="conta">
+            <h2>Contacto</h2>
+            
+            <form class="formulario" action="https://formspree.io/f/xnjlvpda" method="POST">
+            <div class="form1">  
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Ingrese su nombre">
+            </div>
+            <div class="form1">
+            <label for="email">Correo electrónico</label>
+            <input type="email" id="email" name="email" placeholder="Ingrese su email">
+            </div>
+            <div class="form1"> 
+            <label for="mensaje">Mensaje</label>
+            <textarea id="mensaje" name="mensaje" rows="5" placeholder="Escriba su consulta"></textarea>
+            </div>
+            <button type="submit">Enviar</button>
+
+
+            </form>
+            
+    </section>
+
+
+    <footer class="footer">
+        <small>Derechos reservados Talento Tech</small>
+    </footer>
+
+    <!-- Carrito de compras -->
+    <script src="./js/carrito.js"></script>
+</body>
+</html>

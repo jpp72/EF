@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explicación - Carrito de Compras</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: rgb(236, 220, 200);
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            color: #333;
+            padding: 40px 20px;
+        }
+
+        .contenido {
+            max-width: 820px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: brown;
+            font-size: 28px;
+            text-align: center;
+            border-bottom: 3px solid brown;
+            padding-bottom: 15px;
+            margin-bottom: 35px;
+        }
+
+        h2 {
+            color: brown;
+            font-size: 18px;
+            margin: 30px 0 10px 0;
+            padding-left: 10px;
+            border-left: 5px solid rgb(226, 183, 118);
+        }
+
+        p, li {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #444;
+        }
+
+        ul { padding-left: 20px; margin-top: 8px; }
+        li { margin-bottom: 6px; }
+
+        .bloque {
+            background-color: rgb(245, 235, 220);
+            border: 1px solid #c8a87a;
+            border-radius: 10px;
+            padding: 20px 25px;
+            margin-top: 15px;
+        }
+
+        code {
+            background-color: #e8d8c0;
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: brown;
+        }
+
+        pre {
+            background-color: #2b1a0e;
+            color: #f0d9b5;
+            padding: 18px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            overflow-x: auto;
+            margin-top: 12px;
+        }
+
+        .tabla {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+            font-size: 14px;
+        }
+        .tabla th {
+            background-color: brown;
+            color: white;
+            padding: 10px 14px;
+            text-align: left;
+        }
+        .tabla td {
+            padding: 10px 14px;
+            border-bottom: 1px solid #c8a87a;
+            background-color: rgb(245, 235, 220);
+        }
+        .tabla tr:last-child td { border-bottom: none; }
+
+        .etiqueta {
+            display: inline-block;
+            font-size: 12px;
+            padding: 3px 10px;
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+        }
+        .local   { background-color: brown; }
+        .session { background-color: rgb(196, 142, 70); }
+
+        footer {
+            background-color: brown;
+            color: white;
+            text-align: center;
+            padding: 18px;
+            margin-top: 50px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="contenido">
+
+    <h1>📋 Explicación del Carrito de Compras</h1>
+
+    <!-- 1. ESTRUCTURA -->
+    <h2>1. Estructura de archivos</h2>
+    <div class="bloque">
+        <p>Se agregaron o modificaron tres archivos sobre el proyecto original:</p>
+        <ul>
+            <li><code>index.html</code> — se agregó una línea al final para cargar el script</li>
+            <li><code>js/carrito.js</code> — archivo nuevo con toda la lógica del carrito</li>
+            <li><code>pages/carrito.html</code> — página del carrito reemplazada con diseño y funcionalidad</li>
+        </ul>
+    </div>
+
+    <!-- 2. ARRAY DE PRODUCTOS -->
+    <h2>2. Array de productos</h2>
+    <div class="bloque">
+        <p>En <code>carrito.js</code> se define un array llamado <code>productos</code> con los tres servicios disponibles. Cada producto tiene: <code>id</code>, <code>nombre</code>, <code>descripcion</code>, <code>precio</code> y <code>storage</code> (indica dónde se guarda).</p>
+        <pre>const productos = [
+  { id: 1, nombre: "Transporte Logístico",   precio: 150000, storage: "local"   },
+  { id: 2, nombre: "Venta de Pasajes",        precio: 80000,  storage: "session" },
+  { id: 3, nombre: "Servicio de Mantenimiento", precio: 200000, storage: "local" }
+];</pre>
+    </div>
+
+    <!-- 3. BOTONES -->
+    <h2>3. Eventos en los botones de compra</h2>
+    <div class="bloque">
+        <p>Al cargar la página, el script busca todos los elementos con clase <code>.btn-compra</code> y les asigna un evento <code>click</code> a cada uno. El atributo <code>preventDefault()</code> evita que el enlace <code>&lt;a&gt;</code> navegue a otra página.</p>
+        <pre>document.addEventListener("DOMContentLoaded", function() {
+  var botones = document.querySelectorAll(".btn-compra");
+  botones.forEach(function(boton, indice) {
+    boton.addEventListener("click", function(evento) {
+      evento.preventDefault();
+      mostrarOpciones(indice + 1);
+    });
+  });
+});</pre>
+    </div>
+
+    <!-- 4. CONFIRM -->
+    <h2>4. Ventana de confirmación</h2>
+    <div class="bloque">
+        <p>Al hacer clic en un botón se ejecuta <code>mostrarOpciones()</code>, que muestra un <code>confirm()</code> con el nombre, descripción y precio del producto. Si el usuario confirma, se llama a <code>agregarAlCarrito()</code>.</p>
+        <pre>function mostrarOpciones(idProducto) {
+  const producto = productos.find(function(p) { return p.id === idProducto; });
+  const confirmar = confirm(
+    producto.nombre + "\n" + producto.descripcion + "\nPrecio: $" + producto.precio
+  );
+  if (confirmar) { agregarAlCarrito(producto); }
+}</pre>
+    </div>
+
+    <!-- 5. LOCAL VS SESSION -->
+    <h2>5. localStorage vs sessionStorage</h2>
+    <div class="bloque">
+        <p>Dependiendo del campo <code>storage</code> del producto, se guarda en uno u otro:</p>
+
+        <table class="tabla">
+            <tr>
+                <th>Botón</th>
+                <th>Producto</th>
+                <th>Dónde se guarda</th>
+                <th>¿Persiste?</th>
+            </tr>
+            <tr>
+                <td>Botón 1</td>
+                <td>Transporte Logístico</td>
+                <td><span class="etiqueta local">localStorage</span></td>
+                <td>✅ Sí, aunque cierres el navegador</td>
+            </tr>
+            <tr>
+                <td>Botón 2</td>
+                <td>Venta de Pasajes</td>
+                <td><span class="etiqueta session">sessionStorage</span></td>
+                <td>❌ Se borra al cerrar la pestaña</td>
+            </tr>
+            <tr>
+                <td>Botón 3</td>
+                <td>Servicio de Mantenimiento</td>
+                <td><span class="etiqueta local">localStorage</span></td>
+                <td>✅ Sí, aunque cierres el navegador</td>
+            </tr>
+        </table>
+
+        <pre style="margin-top:16px">// Guardar en localStorage
+localStorage.setItem("carritoLocal", JSON.stringify(carritoLocal));
+
+// Guardar en sessionStorage
+sessionStorage.setItem("carritoSession", JSON.stringify(carritoSession));</pre>
+        <p style="margin-top:12px">Los datos se guardan como texto en formato JSON usando <code>JSON.stringify()</code>. Para leerlos se usa <code>JSON.parse()</code>.</p>
+    </div>
+
+    <!-- 6. PÁGINA DEL CARRITO -->
+    <h2>6. Página del carrito</h2>
+    <div class="bloque">
+        <p>La página <code>carrito.html</code> se encarga de:</p>
+        <ul>
+            <li>Leer los datos guardados en <code>localStorage</code> y <code>sessionStorage</code></li>
+            <li>Mostrar cada producto con su nombre, descripción, precio y botón <strong>Eliminar</strong></li>
+            <li>Calcular y mostrar el subtotal de cada storage y el total general</li>
+            <li>Permitir vaciar todo el carrito con el botón <strong>Vaciar carrito</strong></li>
+        </ul>
+        <p style="margin-top:10px">La función principal es <code>renderCarrito()</code>, que se ejecuta al cargar la página y cada vez que se elimina un producto.</p>
+        <pre>function renderCarrito() {
+  var carritoLocal   = JSON.parse(localStorage.getItem("carritoLocal"))   || [];
+  var carritoSession = JSON.parse(sessionStorage.getItem("carritoSession")) || [];
+  // ... recorre cada array, construye el HTML y suma los precios
+}</pre>
+    </div>
+
+    <!-- 7. ELIMINAR -->
+    <h2>7. Eliminar un producto</h2>
+    <div class="bloque">
+        <p>Cada tarjeta de producto tiene un botón Eliminar que llama a <code>eliminarLocal(i)</code> o <code>eliminarSession(i)</code> según corresponda, donde <code>i</code> es la posición del producto en el array. Se usa <code>splice()</code> para quitarlo y se vuelve a guardar el array actualizado.</p>
+        <pre>function eliminarLocal(i) {
+  var carrito = JSON.parse(localStorage.getItem("carritoLocal")) || [];
+  carrito.splice(i, 1);          // elimina 1 elemento en la posición i
+  localStorage.setItem("carritoLocal", JSON.stringify(carrito));
+  renderCarrito();               // actualiza la pantalla
+}</pre>
+    </div>
+
+</div>
+
+<footer>
+    <small>Derechos reservados Talento Tech</small>
+</footer>
+</body>
+</html>

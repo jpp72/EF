@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: rgb(236, 220, 200);
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            color: #333;
+        }
+
+        /* HEADER igual a la página principal */
+        .header1 {
+            text-align: center;
+            color: brown;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: 20px;
+        }
+        .menu0 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+        }
+        .menu0 h1 {
+            font-family: 'Lucida Sans', Geneva, Verdana, sans-serif;
+            font-size: 40px;
+            color: brown;
+        }
+        .logo { width: 65px; height: auto; }
+
+        /* BARRA MARRÓN de navegación */
+        .barra-nav {
+            background-color: brown;
+            text-align: center;
+            padding: 12px;
+        }
+        .barra-nav a {
+            color: rgb(236, 219, 203);
+            text-decoration: none;
+            font-family: 'Franklin Gothic Medium', Arial, sans-serif;
+            font-size: 20px;
+        }
+        .barra-nav a:hover { text-decoration: underline; }
+
+        /* CONTENIDO PRINCIPAL */
+        .contenido {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .titulo-seccion {
+            text-align: center;
+            color: brown;
+            font-size: 30px;
+            margin-bottom: 30px;
+        }
+
+        /* ETIQUETAS de storage */
+        .etiqueta {
+            display: inline-block;
+            font-size: 11px;
+            padding: 3px 10px;
+            border-radius: 10px;
+            color: white;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+        .etiqueta-local   { background-color: brown; }
+        .etiqueta-session { background-color: rgb(196, 142, 70); }
+
+        .subtitulo {
+            color: brown;
+            font-size: 18px;
+            margin: 25px 0 10px 0;
+            border-bottom: 1px solid rgb(196, 142, 70);
+            padding-bottom: 5px;
+        }
+
+        /* TARJETA de producto */
+        .item-carrito {
+            background-color: rgb(245, 235, 220);
+            border: 1px solid #c8a87a;
+            border-left: 5px solid brown;
+            border-radius: 10px;
+            padding: 15px 20px;
+            margin: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .item-carrito.session { border-left-color: rgb(196, 142, 70); }
+
+        .info-item strong { font-size: 16px; color: brown; }
+        .info-item p { font-size: 14px; color: #666; margin-top: 4px; }
+
+        /* BOTÓN eliminar */
+        .btn-eliminar {
+            background-color: brown;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn-eliminar:hover {
+            background-color: #7a1a1a;
+            transform: scale(1.05);
+        }
+
+        /* RESUMEN */
+        .resumen {
+            background-color: rgb(245, 235, 220);
+            border: 1px solid #c8a87a;
+            border-radius: 10px;
+            padding: 20px 25px;
+            margin-top: 30px;
+        }
+        .resumen h3 { color: brown; margin-bottom: 12px; font-size: 18px; }
+        .resumen p  { margin: 6px 0; font-size: 15px; }
+        .resumen .total {
+            font-size: 20px;
+            font-weight: bold;
+            color: brown;
+            border-top: 1px solid #c8a87a;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+
+        .carrito-vacio { color: #999; font-style: italic; padding: 8px 0; }
+
+        /* BOTÓN vaciar */
+        .btn-vaciar {
+            background-color: rgb(226, 183, 118);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+            margin-top: 20px;
+            box-shadow: 3px 3px 8px rgba(0,0,0,0.2);
+            transition: 0.3s;
+        }
+        .btn-vaciar:hover {
+            background-color: rgb(196, 142, 70);
+            transform: scale(1.05);
+        }
+
+        /* FOOTER */
+        .footer {
+            background-color: brown;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER igual a la página principal -->
+    <header class="header1">
+        <div class="menu0">
+            <img src="../assets/logo1.png" alt="Logo" class="logo">
+            <h1>Compania de Servicios Aereos</h1>
+        </div>
+    </header>
+
+    <!-- BARRA de navegación -->
+    <div class="barra-nav">
+        <a href="../index.html">← Volver a la tienda</a>
+    </div>
+
+    <!-- CONTENIDO -->
+    <div class="contenido">
+
+        <h2 class="titulo-seccion">🛒 Carrito de Compras</h2>
+
+        <!-- localStorage -->
+        <h3 class="subtitulo">
+            Productos <span class="etiqueta etiqueta-local">localStorage</span>
+            <small style="font-weight:normal; color:#999; font-size:12px;"> — persisten al cerrar el navegador</small>
+        </h3>
+        <div id="lista-local">
+            <p class="carrito-vacio">No hay productos agregados.</p>
+        </div>
+
+        <!-- sessionStorage -->
+        <h3 class="subtitulo">
+            Productos <span class="etiqueta etiqueta-session">sessionStorage</span>
+            <small style="font-weight:normal; color:#999; font-size:12px;"> — se borran al cerrar la pestaña</small>
+        </h3>
+        <div id="lista-session">
+            <p class="carrito-vacio">No hay productos agregados.</p>
+        </div>
+
+        <!-- RESUMEN -->
+        <div class="resumen">
+            <h3>📋 Resumen de costos</h3>
+            <p>Subtotal localStorage: <strong id="subtotal-local">$0</strong></p>
+            <p>Subtotal sessionStorage: <strong id="subtotal-session">$0</strong></p>
+            <p class="total">Total: <span id="total-general">$0</span></p>
+        </div>
+
+        <br>
+        <button class="btn-vaciar" onclick="vaciarTodo()">🗑️ Vaciar carrito</button>
+
+    </div>
+
+    <footer class="footer">
+        <small>Derechos reservados Talento Tech</small>
+    </footer>
+
+    <script>
+        function formatearPrecio(n) {
+            return "$" + n.toLocaleString("es-AR");
+        }
+
+        function eliminarLocal(i) {
+            var carrito = JSON.parse(localStorage.getItem("carritoLocal")) || [];
+            carrito.splice(i, 1);
+            localStorage.setItem("carritoLocal", JSON.stringify(carrito));
+            renderCarrito();
+        }
+
+        function eliminarSession(i) {
+            var carrito = JSON.parse(sessionStorage.getItem("carritoSession")) || [];
+            carrito.splice(i, 1);
+            sessionStorage.setItem("carritoSession", JSON.stringify(carrito));
+            renderCarrito();
+        }
+
+        function vaciarTodo() {
+            if (confirm("¿Seguro que desea vaciar el carrito completo?")) {
+                localStorage.removeItem("carritoLocal");
+                sessionStorage.removeItem("carritoSession");
+                renderCarrito();
+            }
+        }
+
+        function renderCarrito() {
+            var listaLocal        = document.getElementById("lista-local");
+            var listaSession      = document.getElementById("lista-session");
+            var subtotalLocalEl   = document.getElementById("subtotal-local");
+            var subtotalSessionEl = document.getElementById("subtotal-session");
+            var totalEl           = document.getElementById("total-general");
+
+            var carritoLocal = JSON.parse(localStorage.getItem("carritoLocal")) || [];
+            var sumLocal = 0;
+
+            if (carritoLocal.length === 0) {
+                listaLocal.innerHTML = '<p class="carrito-vacio">No hay productos agregados.</p>';
+            } else {
+                listaLocal.innerHTML = "";
+                carritoLocal.forEach(function(item, i) {
+                    sumLocal += item.precio;
+                    listaLocal.innerHTML +=
+                        '<div class="item-carrito">' +
+                            '<div class="info-item">' +
+                                '<strong>' + item.nombre + '</strong>' +
+                                '<p>' + item.descripcion + '</p>' +
+                                '<p>Precio: ' + formatearPrecio(item.precio) + '</p>' +
+                            '</div>' +
+                            '<button class="btn-eliminar" onclick="eliminarLocal(' + i + ')">Eliminar</button>' +
+                        '</div>';
+                });
+            }
+
+            var carritoSession = JSON.parse(sessionStorage.getItem("carritoSession")) || [];
+            var sumSession = 0;
+
+            if (carritoSession.length === 0) {
+                listaSession.innerHTML = '<p class="carrito-vacio">No hay productos agregados.</p>';
+            } else {
+                listaSession.innerHTML = "";
+                carritoSession.forEach(function(item, i) {
+                    sumSession += item.precio;
+                    listaSession.innerHTML +=
+                        '<div class="item-carrito session">' +
+                            '<div class="info-item">' +
+                                '<strong>' + item.nombre + '</strong>' +
+                                '<p>' + item.descripcion + '</p>' +
+                                '<p>Precio: ' + formatearPrecio(item.precio) + '</p>' +
+                            '</div>' +
+                            '<button class="btn-eliminar" onclick="eliminarSession(' + i + ')">Eliminar</button>' +
+                        '</div>';
+                });
+            }
+
+            subtotalLocalEl.textContent   = formatearPrecio(sumLocal);
+            subtotalSessionEl.textContent = formatearPrecio(sumSession);
+            totalEl.textContent           = formatearPrecio(sumLocal + sumSession);
+        }
+
+        renderCarrito();
+    </script>
+
+</body>
+</html>
